@@ -1,0 +1,24 @@
+{
+  "name": "mitaoe-smart-campus-backend",
+  "version": "1.0.0",
+  "description": "Smart Campus Complaint & Maintenance Management System Backend for MITAOE",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node test-api.js"
+  },
+  "keywords": ["mitaoe", "complaint-system", "maintenance", "express", "mongodb", "react"],
+  "author": "MITAOE Web Technology",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.10",
+    "express": "^5.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.12.3",
+    "multer": "^2.5.0"
+  }
+}

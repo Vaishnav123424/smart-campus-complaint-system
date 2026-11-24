@@ -1,0 +1,191 @@
+{
+  "info": {
+    "name": "MITAOE Smart Campus Complaint & Maintenance API",
+    "_postman_id": "7b8a91c2-3e4f-4d5a-8b6c-9f0e1d2c3b4a",
+    "description": "Comprehensive RESTful API Collection for MIT Academy of Engineering (MITAOE) Web Technology Final Project.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Authentication",
+      "item": [
+        {
+          "name": "Register Student",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Amit Verma\",\n  \"email\": \"amit.verma@mitaoe.ac.in\",\n  \"studentId\": \"PRN202401120\",\n  \"department\": \"School of Computer Engineering & Technology\",\n  \"password\": \"Student@123\",\n  \"confirmPassword\": \"Student@123\",\n  \"phone\": \"+91 98765 12345\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/auth/register", "host": ["{{baseUrl}}"], "path": ["api", "auth", "register"] }
+          }
+        },
+        {
+          "name": "Login as Student",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"rahul.sharma@mitaoe.ac.in\",\n  \"password\": \"Student@123\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/auth/login", "host": ["{{baseUrl}}"], "path": ["api", "auth", "login"] }
+          }
+        },
+        {
+          "name": "Login as Admin",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@mitaoe.ac.in\",\n  \"password\": \"AdminPassword@123\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/auth/login", "host": ["{{baseUrl}}"], "path": ["api", "auth", "login"] }
+          }
+        },
+        {
+          "name": "Get Current Authenticated Profile",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/auth/me", "host": ["{{baseUrl}}"], "path": ["api", "auth", "me"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Complaints",
+      "item": [
+        {
+          "name": "Submit Complaint",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{authToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Broken ceiling fan regulator in B-Building 301\",\n  \"category\": \"Water and electricity problems\",\n  \"location\": \"B-Building, 3rd Floor, Classroom 301\",\n  \"priority\": \"Medium\",\n  \"description\": \"The speed knob on the main switchboard is broken off and the fan is stuck on high speed during exams.\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/complaints", "host": ["{{baseUrl}}"], "path": ["api", "complaints"] }
+          }
+        },
+        {
+          "name": "Get Complaints (Student sees own, Admin sees all)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/complaints", "host": ["{{baseUrl}}"], "path": ["api", "complaints"] }
+          }
+        },
+        {
+          "name": "Filter Complaints by Status & Category",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/complaints?category=Projectors and computers&status=In Progress",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "complaints"],
+              "query": [
+                { "key": "category", "value": "Projectors and computers" },
+                { "key": "status", "value": "In Progress" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Single Complaint by ID",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/complaints/{{complaintId}}", "host": ["{{baseUrl}}"], "path": ["api", "complaints", "{{complaintId}}"] }
+          }
+        },
+        {
+          "name": "Update Pending Complaint",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{authToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Updated: Broken ceiling fan and light switch in B-301\",\n  \"priority\": \"High\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/complaints/{{complaintId}}", "host": ["{{baseUrl}}"], "path": ["api", "complaints", "{{complaintId}}"] }
+          }
+        },
+        {
+          "name": "Delete Complaint",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{authToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/complaints/{{complaintId}}", "host": ["{{baseUrl}}"], "path": ["api", "complaints", "{{complaintId}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Admin Management",
+      "item": [
+        {
+          "name": "Admin Dashboard Analytics",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/admin/dashboard", "host": ["{{baseUrl}}"], "path": ["api", "admin", "dashboard"] }
+          }
+        },
+        {
+          "name": "Admin View All Complaints",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/admin/complaints", "host": ["{{baseUrl}}"], "path": ["api", "admin", "complaints"] }
+          }
+        },
+        {
+          "name": "Admin Update Status & Assign Staff",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"In Progress\",\n  \"assignedStaff\": \"Mr. Sanjay Deshmukh (AV Technician)\",\n  \"adminRemarks\": \"Technician dispatched to inspect HDMI switch and replace wiring.\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/api/admin/complaints/{{complaintId}}/status", "host": ["{{baseUrl}}"], "path": ["api", "admin", "complaints", "{{complaintId}}", "status"] }
+          }
+        },
+        {
+          "name": "Admin Get All Users",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/admin/users", "host": ["{{baseUrl}}"], "path": ["api", "admin", "users"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. System Health Check",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{baseUrl}}/api/health", "host": ["{{baseUrl}}"], "path": ["api", "health"] }
+      }
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000" },
+    { "key": "authToken", "value": "" },
+    { "key": "adminToken", "value": "" },
+    { "key": "complaintId", "value": "" }
+  ]
+}

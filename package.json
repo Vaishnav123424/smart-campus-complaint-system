@@ -1,0 +1,26 @@
+{
+  "name": "smart-campus-complaint-system",
+  "version": "1.0.0",
+  "description": "Smart Campus Complaint & Maintenance Management System for MIT Academy of Engineering (MITAOE)",
+  "scripts": {
+    "start:backend": "cd backend && npm start",
+    "start:frontend": "cd frontend && npm run dev",
+    "build:frontend": "cd frontend && npm run build",
+    "test:backend": "cd backend && npm test",
+    "dev": "npm run start:backend"
+  },
+  "keywords": [
+    "mitaoe",
+    "complaint-system",
+    "mern",
+    "react",
+    "node",
+    "express",
+    "mongodb"
+  ],
+  "author": "MITAOE Web Technology",
+  "license": "ISC",
+  "devDependencies": {
+    "isomorphic-git": "^1.44.19"
+  }
+}
